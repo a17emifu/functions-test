@@ -11,15 +11,13 @@ export interface Post extends Document {
   date: string;
   content: string;
   isPublished: boolean;
-  images: { id: string; url: string }[];
+  images: { url: string }[];
   tags: { id: string; name: string }[];
   user: { id: string; name: string };
   prev?: { id: string; title: string };
   next?: { id: string; title: string };
 }
-export interface Image extends Document {
-  url: string;
-}
+
 export interface Tag extends Document {
   name: string;
 }
