@@ -1,6 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import { create } from "../HelloWorld/db";
-import { Test } from "../HelloWorld/db/schema";
+import { create } from "../src/db";
+import { Test } from "../src/db/schema";
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
