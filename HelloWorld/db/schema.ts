@@ -23,3 +23,7 @@ export interface Image extends Document {
 export interface Tag extends Document {
   name: string;
 }
+//後で削除すること
+export interface Test extends Document {
+  name: string;
+}
