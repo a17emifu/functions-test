@@ -1,3 +1,5 @@
+import internal = require("stream");
+
 interface Document {
   id: string;
   _rid: string;
@@ -5,6 +7,7 @@ interface Document {
   _etag: string;
   _attachments: string;
   _ts: number;
+  ttl: number;
 }
 export interface Post extends Document {
   title: string;
