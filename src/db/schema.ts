@@ -14,17 +14,24 @@ export interface Post extends Document {
   date: string;
   content: string;
   isPublished: boolean;
+  isDeleted: boolean;
   images: { url: string }[];
   tags: { id: string; name: string }[];
-  user: { id: string; name: string };
+  users: { id: string; name: string }[];
   prev?: { id: string; title: string };
   next?: { id: string; title: string };
 }
 
 export interface Tag extends Document {
   name: string;
+  isDeleted: boolean;
+}
+export interface User extends Document {
+  name: string;
+  isDeleted: boolean;
 }
 //後で削除すること
 export interface Test extends Document {
   name: string;
+  isDeleted: boolean;
 }
