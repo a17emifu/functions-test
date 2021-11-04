@@ -2,12 +2,12 @@ import internal = require("stream");
 
 interface Document {
   id: string;
-  _rid: string;
-  _self: string;
-  _etag: string;
-  _attachments: string;
-  _ts: number;
-  ttl: number;
+  _rid?: string;
+  _self?: string;
+  _etag?: string;
+  _attachments?: string;
+  _ts?: number;
+  ttl?: number;
 }
 export interface Post extends Document {
   title: string;

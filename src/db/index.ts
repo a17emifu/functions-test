@@ -22,3 +22,26 @@ export const create = async (containerId: string) => {
     );
   return container;
 };
+
+export const CreateContainer = async (
+  client: CosmosClient,
+  containerItemId: string,
+  databaseId: string
+) => {
+  const { database }: DatabaseResponse =
+    await client.databases.createIfNotExists({
+      id: databaseId,
+    });
+  const { container }: ContainerResponse = await client
+    .database(database.id)
+    .containers.createIfNotExists(
+      { id: containerItemId },
+      { offerThroughput: 400 }
+    );
+  return container;
+};
+
+export const SetupClient = (endpoint: string, key: string) => {
+  const client = new CosmosClient({ endpoint, key });
+  return client;
+};
