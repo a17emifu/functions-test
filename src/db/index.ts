@@ -45,3 +45,11 @@ export const SetupClient = (endpoint: string, key: string) => {
   const client = new CosmosClient({ endpoint, key });
   return client;
 };
+
+export const ConnectDatabase = async (
+  client: CosmosClient,
+  databaseId: string
+) => {
+  const database = client.database(databaseId);
+  return database;
+};
