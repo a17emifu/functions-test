@@ -21,9 +21,9 @@ export const convertPostData = (postDb: PostDb) => {
     content,
     isDeleted,
     isPublished,
-    images: images.map((map) => map.url),
-    tags: tags.map((tag) => tag.name),
-    users: users.map((user) => user.name),
+    images,
+    tags,
+    users,
     prev,
     next,
   };
