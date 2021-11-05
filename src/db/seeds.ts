@@ -1,16 +1,16 @@
 import config from "./config";
-import { SetupClient, CreateContainer } from "./index";
+import { setupClient, createContainer } from "./index";
 import { posts } from "./examples/Post";
 import { tags } from "./examples/Tag";
 
 const insertSeeds = async (testDatabaseId?: string): Promise<void> => {
-  const client = SetupClient(config.endpoint, config.key);
+  const client = setupClient(config.endpoint, config.key);
   const containerItems = [
     { id: "tags", items: tags },
     { id: "posts", items: posts },
   ];
   for (const containerItem of containerItems) {
-    const container = await CreateContainer(
+    const container = await createContainer(
       client,
       containerItem.id,
       config.databaseId
@@ -21,13 +21,13 @@ const insertSeeds = async (testDatabaseId?: string): Promise<void> => {
   }
 };
 const deleteItems = async (): Promise<void> => {
-  const client = SetupClient(config.endpoint, config.key);
+  const client = setupClient(config.endpoint, config.key);
   const containerItems = [
     { id: "tags", items: tags },
     { id: "posts", items: posts },
   ];
   for (const containerItem of containerItems) {
-    const container = await CreateContainer(
+    const container = await createContainer(
       client,
       containerItem.id,
       config.databaseId
@@ -39,7 +39,7 @@ const deleteItems = async (): Promise<void> => {
 };
 
 const cleanUp = async (testDatabaseId?: string): Promise<void> => {
-  const client = SetupClient(config.endpoint, config.key);
+  const client = setupClient(config.endpoint, config.key);
   const databaseId = testDatabaseId ? testDatabaseId : config.databaseId;
   await client.database(databaseId).delete();
 };

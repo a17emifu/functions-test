@@ -23,7 +23,7 @@ export const create = async (containerId: string) => {
   return container;
 };
 
-export const CreateContainer = async (
+export const createContainer = async (
   client: CosmosClient,
   containerItemId: string,
   databaseId: string
@@ -41,12 +41,12 @@ export const CreateContainer = async (
   return container;
 };
 
-export const SetupClient = (endpoint: string, key: string) => {
+export const setupClient = (endpoint: string, key: string) => {
   const client = new CosmosClient({ endpoint, key });
   return client;
 };
 
-export const ConnectDatabase = async (
+export const connectDatabase = async (
   client: CosmosClient,
   databaseId: string
 ) => {
