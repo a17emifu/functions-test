@@ -30,7 +30,7 @@ const httpTrigger: AzureFunction = async function (
     const post: Post = await convertPostData(postDb);
     posts.push(post);
   }
-  // TODO: 全記事数も含めて返す
+  //全記事数も含めて返す
   const allPostsDB: PostDb[] = await fetchItems<PostDb>({
     database,
     containerId: "posts",
