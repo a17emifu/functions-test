@@ -1,0 +1,15 @@
+{
+  "bindings": [
+    {
+      "type": "cosmosDBTrigger",
+      "name": "documents",
+      "direction": "in",
+      "leaseCollectionName": "leases",
+      "connectionStringSetting": "AzureWebJobsStorage",
+      "databaseName": "TestDB",
+      "collectionName": "tags",
+      "createLeaseCollectionIfNotExists": true
+    }
+  ],
+  "scriptFile": "../dist/ChangeTag/index.js"
+}

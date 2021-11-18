@@ -8,8 +8,9 @@ import config from "./config";
 const endpoint: string = config.endpoint;
 const key: string = config.key;
 const client = new CosmosClient({ endpoint, key });
+const databaseId = config.databaseId;
 
-export const create = async (containerId: string) => {
+/*export const create = async (containerId: string) => {
   const { database }: DatabaseResponse =
     await client.databases.createIfNotExists({
       id: config.databaseId,
@@ -21,13 +22,9 @@ export const create = async (containerId: string) => {
       { offerThroughput: 400 }
     );
   return container;
-};
+};*/
 
-export const createContainer = async (
-  client: CosmosClient,
-  containerItemId: string,
-  databaseId: string
-) => {
+export const createContainer = async (containerItemId: string) => {
   const { database }: DatabaseResponse =
     await client.databases.createIfNotExists({
       id: databaseId,
@@ -41,15 +38,12 @@ export const createContainer = async (
   return container;
 };
 
-export const setupClient = (endpoint: string, key: string) => {
+export const setupClient = () => {
   const client = new CosmosClient({ endpoint, key });
   return client;
 };
 
-export const connectDatabase = async (
-  client: CosmosClient,
-  databaseId: string
-) => {
-  const database = client.database(databaseId);
+export const connectDatabase = async (client: CosmosClient) => {
+  const database = client.database(config.databaseId);
   return database;
 };

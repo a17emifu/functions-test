@@ -1,43 +1,47 @@
-import { Database } from "@azure/cosmos";
-/*import config from "../db/config";
-import { setupClient, connectDatabase } from "../db";*/
-export const fetchItemById = async <T>(
-  database: Database,
-  containerId: string,
-  itemId: string
-): Promise<T> => {
-  const container = database.container(containerId);
+import { Container, Database } from "@azure/cosmos";
+
+interface fetchItemByIdProps {
+  container: Container;
+  itemId: string;
+}
+export const fetchItemById = async <T>({
+  container,
+  itemId,
+}: fetchItemByIdProps): Promise<T> => {
   const { resource, requestCharge } = await container.item(itemId).read<T>();
   if (process.env.NODE_ENV === "development") {
     console.log(
-      `fetch itemId ${itemId} from ${containerId} => ${requestCharge} RU`
+      `fetch itemId ${itemId} from ${container.id} => ${requestCharge} RU`
     );
   }
   if (!resource) {
     throw console.error(
-      `Cannot read an item: container ${containerId}, id ${itemId}`
+      `Cannot read an item: container ${container.id}, id ${itemId}`
     );
   }
   return resource;
 };
 
-export const updateItem = async <T>(
-  database: Database,
-  containerId: string,
-  itemId: string,
-  changedResource: T
-): Promise<string> => {
-  const container = database.container(containerId);
+interface updateItemProps<T> {
+  container: Container;
+  itemId: string;
+  changedResource: T;
+}
+export const updateItem = async <T>({
+  container,
+  itemId,
+  changedResource,
+}: updateItemProps<T>): Promise<string> => {
   await container.item(itemId).replace<T>(changedResource);
   const status = "Changed item.";
   return status;
 };
 
 interface FetchItemsProps {
-  database: Database;
-  containerId: string;
-  select?: string;
-  from?: string;
+  container: Container;
+  select: string;
+  from: string;
+  join?: string;
   where?: string;
   offset?: string;
   limit?: string;
@@ -45,32 +49,32 @@ interface FetchItemsProps {
 }
 
 export const fetchItems = async <T>({
-  database,
-  containerId,
-  select = "*",
-  from = "c",
+  container,
+  select,
+  from,
+  join,
   where,
   offset,
   limit,
   orderBy,
 }: FetchItemsProps): Promise<T[]> => {
   let query = `SELECT ${select} FROM ${from}`;
+  query = join ? `${query} JOIN ${join}` : query;
   query = where ? `${query} WHERE ${where}` : query;
   query = offset ? `${query} OFFSET ${offset}` : query;
   query = limit ? `${query} LIMIT ${limit}` : query;
   query = orderBy ? `${query} ORDER BY ${orderBy}` : query;
   const querySpec = { query: query };
-  const container = database.container(containerId);
   const { resources, requestCharge } = await container.items
     .query<T>(querySpec)
     .fetchAll();
   if (process.env.NODE_ENV === "development") {
     console.log(
-      `fetch ${resources.length} items from ${containerId} => ${requestCharge} RU`
+      `fetch ${resources.length} items from ${container.id} => ${requestCharge} RU`
     );
   }
   if (!resources) {
-    throw console.error(`Cannot read items: container ${containerId}`);
+    throw console.error(`Cannot read items: container ${container.id}`);
   }
   return resources;
 };

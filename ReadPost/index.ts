@@ -1,5 +1,4 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import config from "../src/db/config";
 import { fetchItemById } from "../src/api/operations";
 import { convertPostData } from "../src/api/converting";
 import { setupClient, connectDatabase } from "../src/db";
@@ -9,8 +8,8 @@ const readPost: AzureFunction = async function (
   req: HttpRequest
 ): Promise<void> {
   context.log("HTTP trigger function processed a request.");
-  const client = setupClient(config.endpoint, config.key);
-  const database = await connectDatabase(client, config.databaseId);
+  const client = setupClient();
+  const database = await connectDatabase(client);
   console.log(req.query.id);
   const postDb = await fetchItemById<PostDb>(
     database,

@@ -7,7 +7,8 @@
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "SET NODE_ENV=development&func start",
-    "seeds": "SET NODE_ENV=development& ts-node src/db/seeds.ts"
+    "test2": "SET NODE_ENV=development& ts-node src/db/seeds.ts",
+    "test": "jest src/_test_/updateItem.test.ts"
   },
   "dependencies": {
     "@azure/cosmos": "^3.14.1",
