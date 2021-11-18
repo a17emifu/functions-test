@@ -47,10 +47,10 @@ const cleanUp = async (testDatabaseId?: string): Promise<void> => {
 if (process.env.NODE_ENV === "development") {
   (async () => {
     /*console.log("シードデータ削除中...");
-    await deleteItems();*/
-    console.log("シードデータ挿入中...");
-    await insertSeeds();
+    await deleteItems();
+    /*console.log("シードデータ挿入中...");
+    await insertSeeds();*/
   })();
 }
 
-export { insertSeeds, cleanUp };
+export { insertSeeds, cleanUp, deleteItems };

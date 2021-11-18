@@ -21,6 +21,18 @@ export const fetchItemById = async <T>(
   return resource;
 };
 
+export const updateItem = async <T>(
+  database: Database,
+  containerId: string,
+  itemId: string,
+  changedResource: T
+): Promise<string> => {
+  const container = database.container(containerId);
+  await container.item(itemId).replace<T>(changedResource);
+  const status = "Changed item.";
+  return status;
+};
+
 interface FetchItemsProps {
   database: Database;
   containerId: string;

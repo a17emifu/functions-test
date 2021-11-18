@@ -1,7 +1,7 @@
 import dayjs = require("dayjs");
 import { Post } from "../schema";
 
-const maxNum = process.env.NODE_ENV === "development" ? 31 : 1001;
+const maxNum = process.env.NODE_ENV === "development" ? 31 : 51;
 
 export const posts: Post[] = [];
 for (let num = 1; num < maxNum; num++) {
